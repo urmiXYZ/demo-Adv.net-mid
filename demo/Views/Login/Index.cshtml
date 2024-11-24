@@ -1,0 +1,34 @@
+﻿@model demo.DTOs.LoginDTO
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post" action="@Url.Action("Index", "Login")">
+    <!-- Display error message if any -->
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Msg"]
+        </div>
+    }
+
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Enter Username" })
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.UserName)</p>
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password" })
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.Password)</p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<!-- Display validation summary if any -->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })

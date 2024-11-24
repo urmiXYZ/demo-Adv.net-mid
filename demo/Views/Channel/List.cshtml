@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Channel List";
+}
+
+<h2>Channel List</h2>
+<!-- Search Form -->
+<form method="get" action="/Channel/List">
+    <div class="form-group d-flex">
+        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search by Channel Name" />
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+    </div>
+</form>
+
+<!-- Display success message if any -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!-- Display success message if any -->
+@if (TempData["SuccessEditMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessEditMessage"]
+    </div>
+}
+
+<!-- Display success message if any -->
+@if (TempData["SuccessDeleteMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessDeleteMessage"]
+    </div>
+}
+
+<!-- Display error message if any -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Msg"]
+    </div>
+}
+
+
+<a href="/Channel/Create" class="btn btn-primary">Create Channel</a>
+<a href="/Program/List" class="btn btn-warning">Go to program list</a>
+<a href="/Login/Index" class="btn btn-danger">Logout</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Channel Name</th>
+            <th>Established Year</th>
+            <th>Country</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var channel in Model)
+        {
+            <tr>
+                <td>@channel.ChannelId</td>
+                <td>@channel.ChannelName</td>
+                <td>@channel.EstablishedYear</td>
+                <td>@channel.Country</td>
+                <td>
+                    <a href="/Channel/Details/@channel.ChannelId" class="btn btn-info">Details</a>
+                    <a href="/Channel/Edit/@channel.ChannelId" class="btn btn-warning">Edit</a>
+                    <a href="/Channel/Delete/@channel.ChannelId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-between">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a href="/Channel/List?page=@(ViewBag.CurrentPage - 1)&searchTerm=@ViewBag.SearchTerm" class="btn btn-primary">Previous</a>
+    }
+    <span>Page @ViewBag.CurrentPage of @ViewBag.TotalPages</span>
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="/Channel/List?page=@(ViewBag.CurrentPage + 1)&searchTerm=@ViewBag.SearchTerm" class="btn btn-primary">Next</a>
+    }
+</div>

@@ -1,0 +1,35 @@
+﻿@model demo.DTOs.ProgramDTO
+
+@{
+    ViewBag.Title = "Delete Program";
+}
+
+<h2>Delete Program</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<p>Are you sure you want to delete the following program?</p>
+
+<div>
+    <strong>Program Name:</strong> @Model.ProgramName
+</div>
+<div>
+    <strong>Channel Name:</strong> @Model.ChannelName
+</div>
+<div>
+    <strong>TRP Score:</strong> @Model.TRPScore
+</div>
+<div>
+    <strong>Air Time:</strong> @Model.AirTime
+</div>
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.ProgramId" />
+    <input type="submit" name="dcsn" value="Yes" class="btn btn-danger" />
+    <a href="@Url.Action("List")" class="btn btn-secondary">Cancel</a>
+</form>

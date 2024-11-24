@@ -1,0 +1,40 @@
+﻿@model demo.DTOs.ChannelDTO
+
+@{
+    ViewBag.Title = "Channel Details";
+}
+
+<h2>Channel Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">@Model.ChannelName</h3>
+        <p class="card-text"><strong>Channel ID:</strong> @Model.ChannelId</p>
+        <p class="card-text"><strong>Established Year:</strong> @Model.EstablishedYear</p>
+        <p class="card-text"><strong>Country:</strong> @Model.Country</p>
+    </div>
+</div>
+
+<h3>Programs Associated with this Channel:</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Program Name</th>
+            <th>TRP Score</th>
+            <th>Air Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var program in Model.Programs)
+        {
+            <tr>
+                <td>@program.ProgramName</td>
+                <td>@program.TRPScore</td>
+                <td>@program.AirTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Channel/List" class="btn btn-primary">Back to List</a>

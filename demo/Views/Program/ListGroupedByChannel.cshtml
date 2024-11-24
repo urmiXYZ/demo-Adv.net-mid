@@ -1,0 +1,42 @@
+﻿@using demo.Models  <!-- Add this line at the top of the view -->
+
+@model List<demo.Models.GroupedProgramsViewModel>
+
+
+@{
+    ViewBag.Title = "Programs Grouped by Channel";
+}
+
+<h2>Programs Grouped by Channel</h2>
+
+@foreach (var group in Model)
+{
+    <h3>@group.Channel.ChannelName</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Program Name</th>
+                <th>TRP Score</th>
+                <th>Air Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var program in group.Programs)
+            {
+                <tr>
+                    <td>@program.ProgramId</td>
+                    <td>@program.ProgramName</td>
+                    <td>@program.TRPScore</td>
+                    <td>@program.AirTime</td>
+                    <td>
+                        <a href="/Program/Details/@program.ProgramId" class="btn btn-info">Details</a>
+                        <a href="/Program/Edit/@program.ProgramId" class="btn btn-warning">Edit</a>
+                        <a href="/Program/Delete/@program.ProgramId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

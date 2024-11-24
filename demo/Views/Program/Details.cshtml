@@ -1,0 +1,19 @@
+﻿@model demo.DTOs.ProgramDTO
+
+@{
+    ViewBag.Title = "Program Details";
+}
+
+<h2>Program Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">@Model.ProgramName</h3>
+        <p class="card-text"><strong>Program ID:</strong> @Model.ProgramId</p>
+        <p class="card-text"><strong>TRP Score:</strong> @Model.TRPScore</p>
+        <p class="card-text"><strong>Channel Name:</strong> @Model.ChannelName</p>
+        <p class="card-text"><strong>Air Time:</strong> @Model.AirTime.ToString(@"hh\:mm\:ss")</p>
+    </div>
+</div>
+
+<a href="/Program/List" class="btn btn-primary">Back to List</a>

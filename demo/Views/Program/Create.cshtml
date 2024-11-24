@@ -1,0 +1,42 @@
+﻿@model demo.DTOs.ProgramDTO
+
+@{
+    ViewBag.Title = "Create Program";
+}
+
+<h2>Create Program</h2>
+<form method="post">
+    <!-- General error message -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="form-group">
+        <label for="ProgramName">Program Name</label>
+        <input type="text" id="ProgramName" name="ProgramName" class="form-control" placeholder="Enter Program Name" value="@Model.ProgramName" />
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.ProgramName)</p>
+    </div>
+
+    <div class="form-group">
+        <label for="TRPScore">TRP Score</label>
+        <input type="number" id="TRPScore" name="TRPScore" class="form-control" placeholder="Enter TRP Score (0.0 - 10.0)" value="@Model.TRPScore" step="0.1" />
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.TRPScore)</p>
+    </div>
+
+    <div class="form-group">
+        <label for="ChannelName">Channel Name</label>
+        <input type="text" id="ChannelName" name="ChannelName" class="form-control" placeholder="Enter Channel Name" value="@Model.ChannelName" />
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.ChannelName)</p>
+    </div>
+
+    <div class="form-group">
+        <label for="AirTime">Air Time</label>
+        <input type="time" id="AirTime" name="AirTime" class="form-control" placeholder="Enter Air Time (HH:mm:ss)" value="@Model.AirTime.ToString(@"hh\:mm\:ss")" />
+        <p class="text-danger">@Html.ValidationMessageFor(model => model.AirTime)</p>
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-success" />
+</form>

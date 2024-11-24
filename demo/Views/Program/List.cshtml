@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Program List";
+}
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Msg"]
+    </div>
+}
+<h2>Program List</h2>
+<!-- Search Form -->
+<form method="get" action="/Program/List">
+    <div class="form-group d-flex">
+        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search by Program/Channel/TRP" />
+        <button type="submit" class="btn btn-primary ml-2">Search</button>
+        <a href="/Program/ListGroupedByChannel" class="btn btn-secondary ml-2">View Programs by Channel</a>
+
+        <!-- Ascending Sort Button with a different color -->
+        <button type="submit" class="btn btn-success ml-2" name="sortOrder" value="ascending">Ascending</button>
+
+        <!-- Descending Sort Button with a different color -->
+        <button type="submit" class="btn btn-danger ml-2" name="sortOrder" value="descending">Descending</button>
+    </div>
+    <div class="form-group d-flex">
+        <!-- TRP Range Inputs -->
+        <input type="text" name="minTRP" value="@ViewBag.MinTRP" class="form-control" placeholder="Min TRP" />
+        <input type="text" name="maxTRP" value="@ViewBag.MaxTRP" class="form-control ml-2" placeholder="Max TRP" />
+        <button type="submit" class="btn btn-info ml-2">Filter by TRP Range</button>
+    </div>
+</form>
+
+
+
+<!-- Display success message if any -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!-- Display success message if any -->
+@if (TempData["SuccessEditMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessEditMessage"]
+    </div>
+}
+
+<!-- Display success message if any -->
+@if (TempData["SuccessDeleteMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessDeleteMessage"]
+    </div>
+}
+
+<!-- Display error message if any -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<a href="/Program/Create" class="btn btn-primary">Create Program</a>
+<a href="/Channel/List" class="btn btn-warning">Go to Channel List</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Program Name</th>
+            <th>TRP Score</th>
+            <th>Channel Name</th>
+            <th>Air Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var program in Model)
+        {
+            <tr>
+                <td>@program.ProgramId</td>
+                <td>@program.ProgramName</td>
+                <td>@program.TRPScore</td>
+                <td>@program.Channel.ChannelName</td>
+                <td>@program.AirTime</td>
+                <td>
+                    <a href="/Program/Details/@program.ProgramId" class="btn btn-info">Details</a>
+                    <a href="/Program/Edit/@program.ProgramId" class="btn btn-warning">Edit</a>
+                    <a href="/Program/Delete/@program.ProgramId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a href="/Program/List?page=@(ViewBag.CurrentPage - 1)&searchTerm=@ViewBag.SearchTerm&minTRP=@ViewBag.MinTRP&maxTRP=@ViewBag.MaxTRP&sortOrder=@ViewBag.SortOrder" class="btn btn-primary">Previous</a>
+    }
+    <span>Page @ViewBag.CurrentPage of @ViewBag.TotalPages</span>
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="/Program/List?page=@(ViewBag.CurrentPage + 1)&searchTerm=@ViewBag.SearchTerm&minTRP=@ViewBag.MinTRP&maxTRP=@ViewBag.MaxTRP&sortOrder=@ViewBag.SortOrder" class="btn btn-primary">Next</a>
+    }
+</div>
